@@ -1,0 +1,27 @@
+.div-container-welcome{
+    background-color: #1f1e20;
+    color: #f3ebf6;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.div-img {
+width: 50%;
+height: 100%;
+background-image: url('../assets/imgBackgroundAdmin.webp');
+background-position: center;
+background-size: cover;
+background-repeat: no-repeat;
+}
+
+.div-login{
+width: 50%;
+}
+
+@media (max-width:1024px) {
+    .div-img{
+        display: none;
+    }
+    .div-login{width: 100%;}
+}
