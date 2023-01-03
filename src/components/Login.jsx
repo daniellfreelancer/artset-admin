@@ -4,6 +4,8 @@ import logo from '../assets/artsetLogoDark.png'
 import { useSigninMutation } from '../features/loginAPI';
 import { useNavigate } from 'react-router-dom';
 import swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../features/userAPI';
 
 
 
@@ -12,6 +14,7 @@ export default function Login() {
   const passwordAdmin = useRef();
   const emailAdmin = useRef();
   const goHome = useNavigate();
+  const dispatch = useDispatch()
 
   const [loginReducer] = useSigninMutation();
 
@@ -39,15 +42,18 @@ export default function Login() {
         });
 
         } else {
-
           let dataResponse = res.data
+          console.log(dataResponse)
           let dataSuccess = dataResponse.message
+          dispatch(setCredentials(res?.data?.response.user))
+          localStorage.setItem('token', res?.data?.response.token)
           swal.fire({
             text: dataSuccess,
             icon: "success",
           });
           let inputForm = document.querySelector("#contact");
           inputForm.reset();
+
           goHome('/home')
 
         }
@@ -55,6 +61,8 @@ export default function Login() {
       console.log(error)
     })
   }
+
+  console.log("!hola")
 
 
 
@@ -70,7 +78,7 @@ export default function Login() {
 
 
       <div className="mb-3">
-        <label for="exampleFormControlInput1" className="form-label">
+        <label htmlFor="exampleFormControlInput1" className="form-label">
           Correo Electrónico
         </label>
         <input
@@ -81,7 +89,7 @@ export default function Login() {
         />
       </div>
       <div className="mb-3">
-        <label for="exampleFormControlInput1" className="form-label">
+        <label htmlFor="exampleFormControlInput1" className="form-label">
           Contraseña
         </label>
         <input
